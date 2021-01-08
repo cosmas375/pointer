@@ -1,0 +1,22 @@
+{
+    "popup_title": {
+        "message": "Выберите тип указателя:",
+        "description": ""
+    },
+    "popup_label_arrow": {
+        "message": "Стрелка",
+        "description": ""
+    },
+    "popup_label_rectangle": {
+        "message": "Прямоугольник",
+        "description": ""
+    },
+    "popup_label_component": {
+        "message": "HTML компонент",
+        "description": ""
+    },
+    "popup_credits": {
+        "message": "Открыть на GitHub",
+        "description": ""
+    }
+}
