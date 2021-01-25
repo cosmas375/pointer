@@ -58,6 +58,10 @@ body {
     box-shadow: 4px 4px 10px #9a836e;
 }
 
+.button * {
+    pointer-events: none;
+}
+
 .button:hover {
     background-color: var(--font-color-button);
     color: var(--background-color-button);
