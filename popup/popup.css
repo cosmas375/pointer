@@ -1,10 +1,3 @@
-:root {
-    --background-color: #c9b7a6;
-    --background-color-button: #fcf8f5;
-    --font-color-title: #574739;
-    --font-color-button: #7f746a;
-}
-
 body {
     margin: 0;
 }
@@ -19,13 +12,13 @@ body {
     width: 260px;
     height: 100%;
     padding: 18px 16px 10px;
-    background-color: var(--background-color);
+    background-color: var(--pointer-background-color);
 }
 
 .title {
     margin-top: 0;
     margin-bottom: 14px;
-    color: var(--font-color-title);
+    color: var(--pointer-font-color-title);
 }
 
 .row {
@@ -46,15 +39,15 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    background-color: var(--background-color-button);
-    color: var(--font-color-button);
+    background-color: var(--pointer-background-color-button);
+    color: var(--pointer-font-color-button);
     font-size: 16px;
     user-select: none;
     padding: 8px 0;
     position: relative;
     transition: all .2s;
     cursor: pointer;
-    border: 2px solid var(--font-color-button);
+    border: 2px solid var(--pointer-font-color-button);
     box-shadow: 4px 4px 10px #9a836e;
 }
 
@@ -63,8 +56,8 @@ body {
 }
 
 .button:hover {
-    background-color: var(--font-color-button);
-    color: var(--background-color-button);
+    background-color: var(--pointer-font-color-button);
+    color: var(--pointer-background-color-button);
 }
 
 .button__icon {
@@ -97,5 +90,5 @@ body {
 
 .credits {
     font-size: 10px;
-    color: var(--font-color-button);
+    color: var(--pointer-font-color-button);
 }

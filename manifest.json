@@ -23,10 +23,12 @@
                 "*://*/*"
             ],
             "css": [
-                "content/content.css"
+                "content/css/content.css",
+                "content/css/pointer-vars.css"
             ],
             "js": [
-                "content/content.js"
+                "content/js/containers.js",
+                "content/js/chromeEventsHandling.js"
             ]
         }
     ],

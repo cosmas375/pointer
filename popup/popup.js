@@ -1,7 +1,7 @@
-const container = document.querySelector('.container');
+var container = document.querySelector('.container');
 
 container.addEventListener('click', e => {
-    const pointerType = e.target?.dataset?.pointerType;
+    var pointerType = e.target.dataset.pointerType;
     if (!pointerType) {
         return;
     }

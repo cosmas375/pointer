@@ -1,11 +1,11 @@
-(() => {
-    const components = document.querySelectorAll('[data-content]');
+(function () {
+    var components = document.querySelectorAll('[data-content]');
 
     if (!components) {
         return;
     }
 
-    [...components].forEach(component => {
+    Array.from(components).forEach(component => {
         const translationKey = component.dataset.content;
 
         if (!translationKey.trim) {
@@ -17,4 +17,4 @@
             component.innerText = translation;
         }
     });
-})();
+})()
