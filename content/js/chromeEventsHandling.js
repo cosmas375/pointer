@@ -1,7 +1,7 @@
 chrome.runtime.onMessage.addListener(function (message) {
-    var pointerType = message.pointerType;
-    if (!pointerType) {
-        return;
+    if (message.pointerType) {
+        onPointerTypeSelected(message.pointerType);
+    } else if (message.command) {
+        onShortcutUsed();
     }
-    onPointerTypeSelected(pointerType);
 });

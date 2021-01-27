@@ -27,6 +27,7 @@
                 "content/css/pointer-vars.css"
             ],
             "js": [
+                "content/js/pointers/HTML.js",
                 "content/js/containers.js",
                 "content/js/chromeEventsHandling.js"
             ]
@@ -35,6 +36,30 @@
     "browser_action": {
         "default_title": "fucking tooltip",
         "default_popup": "popup/popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "commands": {
+        "trigger_pointer": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+V"
+            },
+            "description": "Trigger pointer creation"
+        },
+        "_execute_browser_action": {
+            "suggested_key": {
+                "windows": "Ctrl+Shift+V",
+                "chromeos": "Ctrl+Shift+V",
+                "linux": "Ctrl+Shift+V"
+            }
+        },
+        "_execute_page_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+V",
+                "windows": "Ctrl+Shift+V"
+            }
+        }
     },
     "options_page": "options/options.html"
 }
