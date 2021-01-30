@@ -17,6 +17,12 @@
     display: block;
 }
 
+.pointer-container__arrow {
+    position: absolute;
+    background-size: contain;
+    z-index: 999999;
+}
+
 .coords-container {
     position: absolute;
     background: var(--pointer-background-color);

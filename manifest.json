@@ -27,11 +27,14 @@
                 "content/css/pointer-vars.css"
             ],
             "js": [
+                "content/js/pointers/Arrow.js",
                 "content/js/pointers/HTML.js",
-                "content/js/containers.js",
-                "content/js/chromeEventsHandling.js"
+                "content/js/main.js"
             ]
         }
+    ],
+    "web_accessible_resources": [
+        "images/svg/arrow.svg"
     ],
     "browser_action": {
         "default_title": "fucking tooltip",

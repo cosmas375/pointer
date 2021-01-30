@@ -1,3 +1,11 @@
+chrome.runtime.onMessage.addListener(function (message) {
+    if (message.pointerType) {
+        onPointerTypeSelected(message.pointerType);
+    } else if (message.command) {
+        onShortcutUsed();
+    }
+});
+
 var pointerContainer = createPointerContainer();
 var coordsContainer = createCoordsContainer();
 
@@ -41,6 +49,7 @@ function onPointerTypeSelected(pointerType) {
     switch (pointerType) {
         case 'arrow':
             initArrowPointing();
+            (new ArrowPointer()).init();
             break;
         case 'rect':
             initRectanglePointing();
@@ -69,10 +78,10 @@ function initRectanglePointing() {
 }
 
 function addInfoOverlay() {
-    alert('infoOverlay visible');
+    console.log('infoOverlay visible');
 }
 function hideInfoOverlay() {
-    alert('infoOverlay hidden');
+    console.log('infoOverlay hidden');
 }
 function listenForShortcutPointer(e) {
     if (e.key === 'Escape') {
@@ -83,8 +92,16 @@ function listenForShortcutPointer(e) {
         onPointerTypeSelected('rect');
     } else if (e.code === 'KeyH') {
         onPointerTypeSelected('html');
+    } else if (e.code === 'KeyC') {
+        removeALlPointers();
     } else {
         return;
     }
     window.removeEventListener('keydown', listenForShortcutPointer);
+}
+
+
+function removeALlPointers() {
+    [...document.querySelectorAll('.pointer__target_html')].forEach(item => item.classList.remove('pointer__target_html'));
+    [...document.querySelectorAll('.pointer-container__arrow')].forEach(item => item.remove());
 }
