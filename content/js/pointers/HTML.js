@@ -1,35 +1,53 @@
-function HTMLPointer() { }
+class HTMLPointer extends BasePointer {
+    constructor() {
+        super();
 
-HTMLPointer.prototype.highlightedComponentClassName = 'pointer__target_html';
+        this.targetClassName = `${this.baseClassName}__html-target`; // sync w content.css
+        this.targetSetClassName = `${this.targetClassName}_set`; // sync w content.css
 
-HTMLPointer.prototype.init = function () {
-    window.addEventListener('mousemove', this.onMouseMove);
-    document.documentElement.addEventListener('click', this.onElementSelected);
-}
-
-HTMLPointer.prototype.onMouseMove = (function (e) {
-    const target = document.elementFromPoint(e.clientX, e.clientY);
-    if (!target || target.classList.contains(this.highlightedComponentClassName)) {
-        return;
+        this.onMouseMove = this.onMouseMove.bind(this);
+        this.onElementSelected = this.onElementSelected.bind(this);
     }
-    this.clearAllHighlightedElements();
-    target.classList.add(this.highlightedComponentClassName);
-}).bind(HTMLPointer.prototype);
 
-HTMLPointer.prototype.onElementSelected = (function (e) {
-    e.preventDefault();
-    var target = e.target;
-    if (!target) {
-        return;
+    init(callback) {
+        window.addEventListener('mousemove', this.onMouseMove);
+        document.documentElement.addEventListener('click', this.onElementSelected);
+
+        this.onCreated = callback;
     }
-    this.clearAllHighlightedElements();
-    window.removeEventListener('mousemove', this.onMouseMove);
-    document.documentElement.removeEventListener('click', this.onElementSelected);
-    target.classList.add(this.highlightedComponentClassName);
-}).bind(HTMLPointer.prototype);
 
-HTMLPointer.prototype.clearAllHighlightedElements = function () {
-    Array.from(document.querySelectorAll('.' + this.highlightedComponentClassName)).forEach(elem => {
-        elem.classList.remove(this.highlightedComponentClassName);
-    });
+    remove() {
+        this.target.classList.remove(this.targetSetClassName);
+    }
+
+    onMouseMove(e) {
+        const target = document.elementFromPoint(e.clientX, e.clientY);
+        if (!target || target.classList.contains(this.targetClassName)) {
+            return;
+        }
+        this.clearAllHighlightedElements();
+        target.classList.add(this.targetClassName);
+    }
+
+    onElementSelected(e) {
+        e.preventDefault();
+        const target = e.target;
+        if (!target) {
+            return;
+        }
+        this.clearAllHighlightedElements();
+        window.removeEventListener('mousemove', this.onMouseMove);
+        document.documentElement.removeEventListener('click', this.onElementSelected);
+        target.classList.add(this.targetSetClassName);
+
+        this.target = target;
+
+        this.onCreated(this);
+    }
+
+    clearAllHighlightedElements() {
+        [...document.querySelectorAll('.' + this.targetClassName)].forEach(elem => {
+            elem.classList.remove(this.targetClassName);
+        });
+    }
 }

@@ -1,14 +1,14 @@
-(function () {
-    var components = document.querySelectorAll('[data-content]');
+(() => {
+    const components = document.querySelectorAll('[data-content]');
 
     if (!components) {
         return;
     }
 
-    Array.from(components).forEach(component => {
+    [...components].forEach(component => {
         const translationKey = component.dataset.content;
 
-        if (!translationKey.trim) {
+        if (!translationKey.trim()) {
             return;
         }
 

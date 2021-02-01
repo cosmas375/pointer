@@ -1,35 +1,9 @@
-.pointer__target_html {
+.pointer__html-target, .pointer__html-target_set {
     box-shadow: 0 0 0 4px red !important;
 }
 
-.pointer-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 999999;
-    cursor: crosshair !important;
-}
-
-.pointer-container_visible {
-    display: block;
-}
-
-.pointer-container__arrow {
+.pointer__arrow {
     position: absolute;
     background-size: contain;
-    z-index: 999999;
-}
-
-.coords-container {
-    position: absolute;
-    background: var(--pointer-background-color);
-    padding: 6px 12px;
-    border: 2px solid var(--pointer-font-color-title);
-    border-radius: 5px;
-    color: var(--pointer-font-color-title);
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, .2);
-    pointer-events: none;
+    z-index: 2147483647;
 }

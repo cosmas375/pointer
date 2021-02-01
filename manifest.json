@@ -1,11 +1,11 @@
 {
     // Required
     "manifest_version": 2,
-    "name": "My fucking extension",
+    "name": "Pointer",
     "version": "0.1",
     // Recommended
     "default_locale": "en",
-    "description": "My fucking extension description",
+    "description": "Provides with a few pointing elements to highlight a web page content",
     "icons": {
         "16": "images/icon_16.png",
         "32": "images/icon_32.png",
@@ -27,8 +27,15 @@
                 "content/css/pointer-vars.css"
             ],
             "js": [
+                // pointers
+                "content/js/pointers/_BasePointer.js",
                 "content/js/pointers/Arrow.js",
                 "content/js/pointers/HTML.js",
+                "content/js/PointersController.js",
+                // shortcuts
+                "content/js/ShortcutsService.js",
+                // main
+                "content/js/config.js",
                 "content/js/main.js"
             ]
         }
@@ -37,7 +44,7 @@
         "images/svg/arrow.svg"
     ],
     "browser_action": {
-        "default_title": "fucking tooltip",
+        "default_title": "Pointer",
         "default_popup": "popup/popup.html"
     },
     "background": {
@@ -48,7 +55,7 @@
             "suggested_key": {
                 "default": "Ctrl+Shift+V"
             },
-            "description": "Trigger pointer creation"
+            "description": "Triggers pointer creation"
         },
         "_execute_browser_action": {
             "suggested_key": {
