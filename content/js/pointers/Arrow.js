@@ -17,13 +17,23 @@ class ArrowPointer extends BasePointer {
         this.startY = 0;
         this.endX = 0;
         this.endY = 0;
-        document.documentElement.addEventListener('click', this.onStartPointSpecified);
-
         this.onCreated = callback;
+
+        this.addFirstStepListeners();
+        this.initShortcuts();
     }
 
     remove() {
+        if (!this.component) {
+            return;
+        }
         this.component.remove();
+    }
+
+    cancel() {
+        this.removeFirstStepListeners();
+        this.removeSecondStepListeners();
+        this.remove();
     }
 
     onStartPointSpecified(e) {
@@ -34,10 +44,8 @@ class ArrowPointer extends BasePointer {
 
         this.createArrowComponent();
 
-        document.documentElement.removeEventListener('click', this.onStartPointSpecified);
-
-        window.addEventListener('mousemove', this.updateArrowTransform);
-        document.documentElement.addEventListener('click', this.onEndPointSpecified);
+        this.removeFirstStepListeners();
+        this.addSecondStepListeners();
     }
 
     createArrowComponent() {
@@ -82,9 +90,25 @@ class ArrowPointer extends BasePointer {
         this.endX = e.clientX;
         this.endY = document.documentElement.scrollTop + e.clientY;
 
-        window.removeEventListener('mousemove', this.updateArrowTransform);
-        document.documentElement.removeEventListener('click', this.onEndPointSpecified);
+        this.removeSecondStepListeners();
 
         this.onCreated(this);
+    }
+
+
+    addFirstStepListeners() {
+        document.documentElement.addEventListener('click', this.onStartPointSpecified);
+    }
+    addSecondStepListeners() {
+        window.addEventListener('mousemove', this.updateArrowTransform);
+        document.documentElement.addEventListener('click', this.onEndPointSpecified);
+    }
+
+    removeFirstStepListeners() {
+        document.documentElement.removeEventListener('click', this.onStartPointSpecified);
+    }
+    removeSecondStepListeners() {
+        window.removeEventListener('mousemove', this.updateArrowTransform);
+        document.documentElement.removeEventListener('click', this.onEndPointSpecified);
     }
 }

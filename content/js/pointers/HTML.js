@@ -10,14 +10,23 @@ class HTMLPointer extends BasePointer {
     }
 
     init(callback) {
-        window.addEventListener('mousemove', this.onMouseMove);
-        document.documentElement.addEventListener('click', this.onElementSelected);
+        this.addListeners();
 
         this.onCreated = callback;
+        this.initShortcuts();
     }
 
     remove() {
+        if (!this.target) {
+            return;
+        }
         this.target.classList.remove(this.targetSetClassName);
+    }
+
+    cancel() {
+        this.removeListeners();
+        this.clearAllHighlightedElements();
+        this.remove();
     }
 
     onMouseMove(e) {
@@ -36,8 +45,7 @@ class HTMLPointer extends BasePointer {
             return;
         }
         this.clearAllHighlightedElements();
-        window.removeEventListener('mousemove', this.onMouseMove);
-        document.documentElement.removeEventListener('click', this.onElementSelected);
+        this.removeListeners();
         target.classList.add(this.targetSetClassName);
 
         this.target = target;
@@ -49,5 +57,14 @@ class HTMLPointer extends BasePointer {
         [...document.querySelectorAll('.' + this.targetClassName)].forEach(elem => {
             elem.classList.remove(this.targetClassName);
         });
+    }
+
+    addListeners() {
+        window.addEventListener('mousemove', this.onMouseMove);
+        document.documentElement.addEventListener('click', this.onElementSelected);
+    }
+    removeListeners() {
+        window.removeEventListener('mousemove', this.onMouseMove);
+        document.documentElement.removeEventListener('click', this.onElementSelected);
     }
 }
