@@ -9,9 +9,16 @@ chrome.runtime.onMessage.addListener(function (message) {
         shortcutsService.init(command => {
             hideInfoOverlay();
             if (command !== 'cancel') {
-                pointersController.onCommand(command)
+                pointersController.onCommand(command);
             }
         });
+    } else if (message.contextMenu) {
+        const [type, value] = message.contextMenu.split('.');
+        if (type === 'pointer') {
+            pointersController.triggerPointerByType(value);
+        } else {
+            pointersController.onCommand(value);
+        }
     }
 });
 

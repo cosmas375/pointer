@@ -15,7 +15,8 @@
     //
     "permissions": [
         "declarativeContent",
-        "activeTab"
+        "activeTab",
+        "contextMenus"
     ],
     "content_scripts": [
         {
@@ -27,13 +28,13 @@
                 "content/css/pointer-vars.css"
             ],
             "js": [
+                // shortcuts
+                "content/js/ShortcutsService.js",
                 // pointers
                 "content/js/pointers/_BasePointer.js",
                 "content/js/pointers/Arrow.js",
                 "content/js/pointers/HTML.js",
                 "content/js/PointersController.js",
-                // shortcuts
-                "content/js/ShortcutsService.js",
                 // main
                 "content/js/config.js",
                 "content/js/main.js"
