@@ -1,12 +1,6 @@
 class ShortcutsService {
     constructor(config) {
-        this.keyToCommandConfig = config;
-        this.commandToKeyConfig = Object.keys(config).reduce((obj, key) => {
-            return {
-                ...obj,
-                [config[key]]: key,
-            }
-        }, {});
+        this.config = config;
         this.onCommandTriggered = () => { };
 
         this.onKeydown = this.onKeydown.bind(this);
@@ -17,14 +11,18 @@ class ShortcutsService {
         this.onCommandTriggered = callback;
     }
 
+    destroy() {
+        window.removeEventListener('keydown', this.onKeydown);
+    }
+
     onKeydown(e) {
         e.preventDefault();
 
-        const command = this.commandToKeyConfig[e.code];
+        const command = this.config[e.code];
         if (!command) {
             return;
         }
         this.onCommandTriggered(command);
-        window.removeEventListener('keydown', this.onKeydown);
+        this.destroy();
     }
 }

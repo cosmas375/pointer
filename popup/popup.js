@@ -1,12 +1,12 @@
 var container = document.querySelector('.container');
 
 container.addEventListener('click', e => {
-    var pointerType = e.target.dataset.pointerType;
-    if (!pointerType) {
+    var command = e.target.dataset.command;
+    if (!command) {
         return;
     }
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { pointerType });
+        chrome.tabs.sendMessage(tabs[0].id, { trigger: 'popup', command });
     });
     window.close();
 });

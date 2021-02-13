@@ -33,6 +33,7 @@ class ArrowPointer extends BasePointer {
     cancel() {
         this.removeFirstStepListeners();
         this.removeSecondStepListeners();
+        this.removeShortcuts();
         this.remove();
     }
 
@@ -91,6 +92,7 @@ class ArrowPointer extends BasePointer {
         this.endY = document.documentElement.scrollTop + e.clientY;
 
         this.removeSecondStepListeners();
+        this.removeShortcuts();
 
         this.onCreated(this);
     }

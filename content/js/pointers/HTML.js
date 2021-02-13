@@ -24,8 +24,9 @@ class HTMLPointer extends BasePointer {
     }
 
     cancel() {
-        this.removeListeners();
         this.clearAllHighlightedElements();
+        this.removeListeners();
+        this.removeShortcuts();
         this.remove();
     }
 
@@ -46,6 +47,7 @@ class HTMLPointer extends BasePointer {
         }
         this.clearAllHighlightedElements();
         this.removeListeners();
+        this.removeShortcuts();
         target.classList.add(this.targetSetClassName);
 
         this.target = target;

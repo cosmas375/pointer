@@ -28,15 +28,15 @@
                 "content/css/pointer-vars.css"
             ],
             "js": [
+                "content/js/Overlay.js",
                 // shortcuts
                 "content/js/ShortcutsService.js",
                 // pointers
                 "content/js/pointers/_BasePointer.js",
                 "content/js/pointers/Arrow.js",
                 "content/js/pointers/HTML.js",
-                "content/js/PointersController.js",
+                "content/js/PointersContainer.js",
                 // main
-                "content/js/config.js",
                 "content/js/main.js"
             ]
         }

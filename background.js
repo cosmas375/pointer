@@ -3,12 +3,12 @@ const contextMenus = [{
     title: 'Pointer',
     contexts: ['all'],
 }, {
-    id: 'pointer.arrow',
+    id: 'initPointer.arrow',
     title: 'Arrow ↗️',
     contexts: ['all'],
     parentId: 'root',
 }, {
-    id: 'pointer.html',
+    id: 'initPointer.html',
     title: 'HTML < />',
     contexts: ['all'],
     parentId: 'root',
@@ -28,16 +28,14 @@ contextMenus.forEach(item => {
     chrome.contextMenus.create(item);
 });
 chrome.contextMenus.onClicked.addListener(item => {
-    const id = item.menuItemId;
-    const message = { contextMenu: id };
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, message);
+        chrome.tabs.sendMessage(tabs[0].id, { trigger: 'context', command: item.menuItemId });
     });
 })
 
 
-chrome.commands.onCommand.addListener(function (command) {
+chrome.commands.onCommand.addListener(function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { command });
+        chrome.tabs.sendMessage(tabs[0].id, { trigger: 'shortcut' });
     });
 });

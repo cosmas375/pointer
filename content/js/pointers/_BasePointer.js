@@ -1,7 +1,7 @@
 class BasePointer {
     constructor() {
         this.baseClassName = 'pointer'; // sync w content.css
-        this.shortcuts = new ShortcutsService({ cancel: 'Escape' });
+        this.shortcuts = new ShortcutsService({ Escape: 'cancel' });
     }
 
     init() {
@@ -20,5 +20,8 @@ class BasePointer {
 
     initShortcuts() {
         this.shortcuts.init(() => this.cancel());
+    }
+    removeShortcuts() {
+        this.shortcuts.destroy();
     }
 }
