@@ -28,17 +28,17 @@ export const CONTEXT_MENUS = [
         parentId: 'root',
         contexts: ['all'],
     }, {
-        id: 'command.undo',
+        id: 'undo',
         title: 'Undo   x',
         contexts: ['all'],
         parentId: 'root',
     }, {
-        id: 'command.redo',
+        id: 'redo',
         title: 'Redo   x',
         contexts: ['all'],
         parentId: 'root',
     }, {
-        id: 'command.clear',
+        id: 'clear',
         title: 'Clear all   x',
         contexts: ['all'],
         parentId: 'root',
@@ -48,7 +48,7 @@ export const CONTEXT_MENUS = [
 export const SHORTCUTS_CONFIG = {
     KeyA: 'add.arrow',
     KeyH: 'add.html',
-    KeyZ: 'command.undo',
-    KeyC: 'command.clear',
-    Escape: 'command.cancel',
+    KeyZ: 'undo',
+    KeyC: 'clear',
+    Escape: 'cancel',
 };

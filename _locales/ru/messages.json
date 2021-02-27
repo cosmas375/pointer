@@ -11,8 +11,20 @@
         "message": "Прямоугольник",
         "description": ""
     },
-    "popup_label_component": {
+    "popup_label_html": {
         "message": "HTML компонент",
+        "description": ""
+    },
+    "popup_label_undo": {
+        "message": "Отменить",
+        "description": ""
+    },
+    "popup_label_redo": {
+        "message": "Повторить",
+        "description": ""
+    },
+    "popup_label_clear": {
+        "message": "Очистить",
         "description": ""
     },
     "popup_credits": {

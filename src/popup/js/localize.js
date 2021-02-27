@@ -1,4 +1,4 @@
-(() => {
+function localize() {
     const components = document.querySelectorAll('[data-content]');
 
     if (!components) {
@@ -17,4 +17,6 @@
             component.innerText = translation;
         }
     });
-})()
+}
+
+export default localize;

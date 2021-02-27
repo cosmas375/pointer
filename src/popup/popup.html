@@ -4,10 +4,6 @@
 <head>
     <link
         rel="stylesheet"
-        href="../content/css/pointer-vars.css"
-    >
-    <link
-        rel="stylesheet"
         href="popup.css"
     >
 </head>
@@ -19,40 +15,77 @@
             data-content="popup_title"
         ></h3>
         <div class="row">
-            <button
-                type="button"
-                class="button"
-                data-action="add.arrow"
-            >
-                <span class="button__icon button__icon_arrow">&#8605;</span>
-                <span
-                    class="button__content"
-                    data-content="popup_label_arrow"
-                ></span>
-            </button>
+            <div class="row__item">
+                <button
+                    type="button"
+                    class="button"
+                    data-action="add.arrow"
+                >
+                    <span class="button__icon button__icon_arrow">&#8605;</span>
+                    <span
+                        class="button__content"
+                        data-content="popup_label_arrow"
+                    ></span>
+                </button>
+            </div>
         </div>
-        <!-- <div class="row">
-            <button
-                type="button"
-                class="button"
-                data-action="add.rect"
-            >
-                <span class="button__icon button__icon_rect">&#9634;</span>
-                <span class="button__content" data-content="popup_label_rectangle"></span>
-            </button>
-        </div> -->
         <div class="row">
-            <button
-                type="button"
-                class="button"
-                data-action="add.html"
-            >
-                <span class="button__icon button__icon_component">&#60; /></span>
-                <span
-                    class="button__content"
-                    data-content="popup_label_component"
-                ></span>
-            </button>
+            <div class="row__item">
+                <button
+                    type="button"
+                    class="button"
+                    data-action="add.html"
+                >
+                    <span class="button__icon button__icon_html">&#60; /></span>
+                    <span
+                        class="button__content"
+                        data-content="popup_label_html"
+                    ></span>
+                </button>
+            </div>
+        </div>
+
+        <hr class="hr">
+
+        <div class="row">
+            <div class="row__item">
+                <button
+                    type="button"
+                    class="button"
+                    data-action="undo"
+                >
+                    <span
+                        class="button__content"
+                        data-content="popup_label_undo"
+                    ></span>
+                </button>
+            </div>
+            <div class="row__item">
+                <button
+                    type="button"
+                    class="button"
+                    data-action="redo"
+                >
+                    <span
+                        class="button__content"
+                        data-content="popup_label_redo"
+                    ></span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row__item">
+                <button
+                    type="button"
+                    class="button button_red"
+                    data-action="clear"
+                >
+                    <span
+                        class="button__content"
+                        data-content="popup_label_clear"
+                    ></span>
+                </button>
+            </div>
         </div>
         <div class="row row_credits">
             <a
@@ -64,7 +97,6 @@
         </div>
     </div>
 
-    <script src="localizeHTML.js"></script>
     <script src="popup.js"></script>
 </body>
 

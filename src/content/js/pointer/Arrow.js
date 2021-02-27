@@ -1,17 +1,19 @@
 import Pointer from './_Pointer';
 
-const ARROW_IMG = chrome.extension.getURL('/images/svg/arrow.svg');
 const IMG_ASPECT_RATIO = 4.75;
 
 export default class ArrowPointer extends Pointer {
-    constructor() {
+    constructor(data) {
         super();
-
         this.componentClassName = `${this.baseClassName}__arrow`; // sync w content.css
 
-        this.onStartPointSpecified = this.onStartPointSpecified.bind(this);
-        this.updateArrowTransform = this.updateArrowTransform.bind(this);
-        this.onEndPointSpecified = this.onEndPointSpecified.bind(this);
+        if (data) {
+            this.createFromData(data);
+        } else {
+            this.onStartPointSpecified = this.onStartPointSpecified.bind(this);
+            this.onEndPointSpecified = this.onEndPointSpecified.bind(this);
+            this.omMouseMove = this.omMouseMove.bind(this);
+        }
     }
 
     init(callback) {
@@ -24,28 +26,54 @@ export default class ArrowPointer extends Pointer {
         this.addFirstStepListeners();
         this.initCancellationShortcut();
     }
-
-    remove() {
+    destroy() {
         if (!this.component) {
             return;
         }
         this.component.remove();
+    }
+    mount() {
+        if (!this.component) {
+            return;
+        }
+        this.component.style.display = 'block';
+    }
+    unmount() {
+        if (!this.component) {
+            return;
+        }
+        this.component.style.display = 'none';
     }
 
     cancel() {
         this.removeFirstStepListeners();
         this.removeSecondStepListeners();
         this.removeCancellationShortcut();
-        this.remove();
+        this.destroy();
+    }
+
+    createFromData(data) {
+        this.startX = data.startX;
+        this.startY = data.startY;
+        this.endX = data.endX;
+        this.endY = data.endY;
+
+        this.createArrowComponent();
+        this.updateTransform();
     }
 
     onStartPointSpecified(e) {
         this.preventDefault(e);
 
-        this.startX = e.clientX;
-        this.startY = document.documentElement.scrollTop + e.clientY;
+        const x = e.clientX;
+        const y = document.documentElement.scrollTop + e.clientY;
+        this.startX = x;
+        this.startY = y;
+        this.endX = x;
+        this.endY = y;
 
         this.createArrowComponent();
+        this.updateTransform();
 
         this.removeFirstStepListeners();
         this.addSecondStepListeners();
@@ -54,20 +82,30 @@ export default class ArrowPointer extends Pointer {
     createArrowComponent() {
         const component = document.createElement('div');
         component.classList.add(this.componentClassName);
-        component.style.backgroundImage = `url(${ARROW_IMG})`;
-        component.style.top = `${this.startY}px`;
-        component.style.left = `${this.startX}px`;
         document.body.appendChild(component);
-
         this.component = component;
     }
+    updateTransform() {
+        const { startX, startY, width, height, angle } = this.getTransforms();
+        const style = this.component.style;
+        style.top = `${startY}px`;
+        style.left = `${startX}px`;
+        style.transform = `translate(-100%, -50%) rotate(${angle || 0}rad)`;
+        style.height = `${height}px`;
+        style.width = `${width}px`;
+    }
 
-    updateArrowTransform(e) {
-        const x = e.clientX;
-        const y = document.documentElement.scrollTop + e.clientY;
+    omMouseMove(e) {
+        this.endX = e.clientX;
+        this.endY = document.documentElement.scrollTop + e.clientY;
+        this.updateTransform();
+    }
 
-        const horizontalProjection = this.startX - x;
-        const verticalProjection = this.startY - y;
+    getTransforms() {
+        const { startX, startY, endX, endY } = this;
+
+        const horizontalProjection = startX - endX;
+        const verticalProjection = startY - endY;
 
         const diagonal = Math.sqrt(horizontalProjection ** 2 + verticalProjection ** 2);
         const height = diagonal / Math.sqrt(1 + IMG_ASPECT_RATIO ** 2);
@@ -80,18 +118,19 @@ export default class ArrowPointer extends Pointer {
             angle = (horizontalProjection > 0 ? 0 : Math.PI) + Math.atan(verticalProjection / horizontalProjection);
         }
 
-        this.component.style.transform = `translate(-100%, -50%) rotate(${angle || 0}rad)`;
-        this.component.style.transformOrigin = 'right center';
-
-        this.component.style.height = `${height}px`;
-        this.component.style.width = `${width}px`;
+        return {
+            startX,
+            startY,
+            width,
+            height,
+            angle,
+        };
     }
 
     onEndPointSpecified(e) {
         this.preventDefault(e);
 
-        this.endX = e.clientX;
-        this.endY = document.documentElement.scrollTop + e.clientY;
+        this.omMouseMove(e);
 
         this.removeSecondStepListeners();
         this.removeCancellationShortcut();
@@ -105,20 +144,20 @@ export default class ArrowPointer extends Pointer {
         document.documentElement.addEventListener('mouseup', this.preventDefault);
         document.documentElement.addEventListener('click', this.onStartPointSpecified);
     }
-    addSecondStepListeners() {
-        window.addEventListener('mousemove', this.updateArrowTransform);
-        document.documentElement.addEventListener('mousedown', this.preventDefault);
-        document.documentElement.addEventListener('mouseup', this.preventDefault);
-        document.documentElement.addEventListener('click', this.onEndPointSpecified);
-    }
-
     removeFirstStepListeners() {
         document.documentElement.removeEventListener('mousedown', this.preventDefault);
         document.documentElement.removeEventListener('mouseup', this.preventDefault);
         document.documentElement.removeEventListener('click', this.onStartPointSpecified);
     }
+
+    addSecondStepListeners() {
+        window.addEventListener('mousemove', this.omMouseMove);
+        document.documentElement.addEventListener('mousedown', this.preventDefault);
+        document.documentElement.addEventListener('mouseup', this.preventDefault);
+        document.documentElement.addEventListener('click', this.onEndPointSpecified);
+    }
     removeSecondStepListeners() {
-        window.removeEventListener('mousemove', this.updateArrowTransform);
+        window.removeEventListener('mousemove', this.omMouseMove);
         document.documentElement.removeEventListener('mousedown', this.preventDefault);
         document.documentElement.removeEventListener('mouseup', this.preventDefault);
         document.documentElement.removeEventListener('click', this.onEndPointSpecified);

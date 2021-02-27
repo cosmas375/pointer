@@ -1,14 +1,17 @@
 import Pointer from './_Pointer';
 
 export default class HTMLPointer extends Pointer {
-    constructor() {
+    constructor(data) {
         super();
-
         this.targetClassName = `${this.baseClassName}__html-target`; // sync w content.css
         this.targetSetClassName = `${this.targetClassName}_set`; // sync w content.css
 
-        this.onMouseMove = this.onMouseMove.bind(this);
-        this.onElementSelected = this.onElementSelected.bind(this);
+        if (data) {
+            this.createFromData(data);
+        } else {
+            this.onMouseMove = this.onMouseMove.bind(this);
+            this.onElementSelected = this.onElementSelected.bind(this);
+        }
     }
 
     init(callback) {
@@ -16,8 +19,19 @@ export default class HTMLPointer extends Pointer {
         this.initCancellationShortcut();
         this.onCreated = callback;
     }
-
-    remove() {
+    destroy() {
+        if (!this.target) {
+            return;
+        }
+        this.target.classList.remove(this.targetSetClassName);
+    }
+    mount() {
+        if (!this.target) {
+            return;
+        }
+        this.target.classList.add(this.targetSetClassName);
+    }
+    unmount() {
         if (!this.target) {
             return;
         }
@@ -28,7 +42,11 @@ export default class HTMLPointer extends Pointer {
         this.clearAllHighlightedElements();
         this.removeListeners();
         this.removeCancellationShortcut();
-        this.remove();
+        this.destroy();
+    }
+
+    createFromData(data) {
+        console.log(data);
     }
 
     onMouseMove(e) {

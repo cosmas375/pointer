@@ -30,7 +30,6 @@ export default class ShortcutsService {
         this.destroy();
     }
 
-
     preventDefault(e) {
         e.preventDefault();
         e.stopPropagation();

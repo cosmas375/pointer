@@ -1,6 +1,5 @@
 import { POINTERS_MAP, SHORTCUTS_CONFIG } from '../../configs';
 
-import PointersContainer from './PointersContainer';
 import PointersDispatcher from './PointersDispatcher';
 
 import ShortcutsInteractor from './interactor/ShortcutsInteractor';
@@ -8,8 +7,7 @@ import PopupInteractor from './interactor/PopupInteractor';
 import ContextMenuInteractor from './interactor/ContextMenuInteractor';
 
 
-const container = new PointersContainer();
-const dispatcher = new PointersDispatcher({ container, pointersMap: POINTERS_MAP });
+const dispatcher = new PointersDispatcher({ pointersMap: POINTERS_MAP });
 
 const shortcutInteractor = new ShortcutsInteractor({
     config: SHORTCUTS_CONFIG,

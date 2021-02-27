@@ -1,3 +1,7 @@
+import localize from './localize';
+
+localize();
+
 const container = document.querySelector('.container');
 
 container.addEventListener('click', e => {

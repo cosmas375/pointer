@@ -1,0 +1,130 @@
+$background-color: #c9b7a6;
+$button-background-color: #fcf8f5;
+$button-background-color-red: #d36161;
+$title-color: #574739;
+$button-color: #7f746a;
+$button-shadow-color: #9a836e;
+
+body {
+    margin: 0;
+}
+
+.container {
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+.container {
+    font-family: Courier, sans-serif;
+    font-size: 14px;
+    width: 260px;
+    height: 100%;
+    padding: 18px 16px 10px;
+    background-color: $background-color;
+}
+
+.title {
+    margin-top: 0;
+    margin-bottom: 14px;
+    color: $title-color;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 6px;
+
+    &_credits {
+        align-items: flex-end;
+        margin-top: 14px;
+    }
+
+    &__item {
+        width: 100%;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 8px;
+    background-color: $button-background-color;
+    color: $button-color;
+    font-size: 16px;
+    user-select: none;
+    padding: 8px 0;
+    position: relative;
+    transition: all .2s;
+    cursor: pointer;
+    border: 2px solid $button-color;
+    box-shadow: 4px 4px 10px $button-shadow-color;
+
+    &:hover {
+        background-color: $button-color;
+        color: $button-background-color;
+    }
+
+    &_red {
+        color: $button-background-color-red;
+        border-color: $button-background-color-red;
+
+        &:hover {
+            background-color: $button-background-color-red;
+        }
+    }
+
+    &__icon {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+
+        &_arrow {
+            font-size: 18px;
+            bottom: 8px;
+        }
+
+        &_rect {
+            bottom: 9px;
+        }
+
+        &_html {
+            font-size: 14px;
+            bottom: 7px;
+        }
+    }
+
+    * {
+        pointer-events: none;
+    }
+}
+
+.credits {
+    font-size: 10px;
+    color: $button-color;
+}
+
+.hr {
+    border: none;
+    color: $button-color;
+    background-color: $button-color;
+    height: 1px;
+    margin: 10px 0;
+}

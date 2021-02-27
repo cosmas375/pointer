@@ -9,9 +9,8 @@ export default class Pointer {
     init() {
         throw new Error(`no 'create' method provided for ${this}!`);
     }
-
-    remove() {
-        throw new Error(`no 'remove' method provided for ${this.type}!`);
+    destroy() {
+        throw new Error(`no 'destroy' method provided for ${this.type}!`);
     }
 
     initCancellationShortcut() {
@@ -21,7 +20,6 @@ export default class Pointer {
     removeCancellationShortcut() {
         this.shortutService.destroy();
     }
-
 
     preventDefault(e) {
         e.stopPropagation();

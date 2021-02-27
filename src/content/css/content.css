@@ -1,9 +1,0 @@
-.pointer__html-target, .pointer__html-target_set {
-    box-shadow: 0 0 0 4px red !important;
-}
-
-.pointer__arrow {
-    position: absolute;
-    background-size: contain;
-    z-index: 2147483647;
-}

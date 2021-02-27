@@ -24,20 +24,16 @@
                 "*://*/*"
             ],
             "css": [
-                "src/content/css/content.css",
-                "src/content/css/pointer-vars.css"
+                "content/content.css"
             ],
             "js": [
-                "content.js"
+                "content/content.js"
             ]
         }
     ],
-    "web_accessible_resources": [
-        "images/svg/arrow.svg"
-    ],
     "browser_action": {
         "default_title": "Pointer",
-        "default_popup": "src/popup/popup.html"
+        "default_popup": "popup/popup.html"
     },
     "background": {
         "service_worker": "background.js"
@@ -62,6 +58,7 @@
                 "windows": "Ctrl+Shift+V"
             }
         }
-    },
-    "options_page": "src/options/options.html"
+    }
+    // },
+    // "options_page": "options/options.html"
 }

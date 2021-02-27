@@ -11,8 +11,20 @@
         "message": "Rectangle",
         "description": ""
     },
-    "popup_label_component": {
+    "popup_label_html": {
         "message": "HTML component",
+        "description": ""
+    },
+    "popup_label_undo": {
+        "message": "Undo",
+        "description": ""
+    },
+    "popup_label_redo": {
+        "message": "Redo",
+        "description": ""
+    },
+    "popup_label_clear": {
+        "message": "Clear",
         "description": ""
     },
     "popup_credits": {
