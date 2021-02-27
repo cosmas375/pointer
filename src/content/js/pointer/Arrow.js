@@ -1,7 +1,9 @@
+import Pointer from './_Pointer';
+
 const ARROW_IMG = chrome.extension.getURL('/images/svg/arrow.svg');
 const IMG_ASPECT_RATIO = 4.75;
 
-class ArrowPointer extends BasePointer {
+export default class ArrowPointer extends Pointer {
     constructor() {
         super();
 
@@ -20,7 +22,7 @@ class ArrowPointer extends BasePointer {
         this.onCreated = callback;
 
         this.addFirstStepListeners();
-        this.initShortcuts();
+        this.initCancellationShortcut();
     }
 
     remove() {
@@ -33,12 +35,12 @@ class ArrowPointer extends BasePointer {
     cancel() {
         this.removeFirstStepListeners();
         this.removeSecondStepListeners();
-        this.removeShortcuts();
+        this.removeCancellationShortcut();
         this.remove();
     }
 
     onStartPointSpecified(e) {
-        e.preventDefault();
+        this.preventDefault(e);
 
         this.startX = e.clientX;
         this.startY = document.documentElement.scrollTop + e.clientY;
@@ -63,21 +65,21 @@ class ArrowPointer extends BasePointer {
     updateArrowTransform(e) {
         const x = e.clientX;
         const y = document.documentElement.scrollTop + e.clientY;
-    
+
         const horizontalProjection = this.startX - x;
         const verticalProjection = this.startY - y;
-    
+
         const diagonal = Math.sqrt(horizontalProjection ** 2 + verticalProjection ** 2);
         const height = diagonal / Math.sqrt(1 + IMG_ASPECT_RATIO ** 2);
         const width = height * IMG_ASPECT_RATIO;
-    
+
         let angle;
         if (horizontalProjection === 0) {
             angle = verticalProjection > 0 ? Math.PI / 2 : -Math.PI / 2;
         } else {
             angle = (horizontalProjection > 0 ? 0 : Math.PI) + Math.atan(verticalProjection / horizontalProjection);
         }
-    
+
         this.component.style.transform = `translate(-100%, -50%) rotate(${angle || 0}rad)`;
         this.component.style.transformOrigin = 'right center';
 
@@ -86,31 +88,39 @@ class ArrowPointer extends BasePointer {
     }
 
     onEndPointSpecified(e) {
-        e.preventDefault();
+        this.preventDefault(e);
 
         this.endX = e.clientX;
         this.endY = document.documentElement.scrollTop + e.clientY;
 
         this.removeSecondStepListeners();
-        this.removeShortcuts();
+        this.removeCancellationShortcut();
 
         this.onCreated(this);
     }
 
 
     addFirstStepListeners() {
+        document.documentElement.addEventListener('mousedown', this.preventDefault);
+        document.documentElement.addEventListener('mouseup', this.preventDefault);
         document.documentElement.addEventListener('click', this.onStartPointSpecified);
     }
     addSecondStepListeners() {
         window.addEventListener('mousemove', this.updateArrowTransform);
+        document.documentElement.addEventListener('mousedown', this.preventDefault);
+        document.documentElement.addEventListener('mouseup', this.preventDefault);
         document.documentElement.addEventListener('click', this.onEndPointSpecified);
     }
 
     removeFirstStepListeners() {
+        document.documentElement.removeEventListener('mousedown', this.preventDefault);
+        document.documentElement.removeEventListener('mouseup', this.preventDefault);
         document.documentElement.removeEventListener('click', this.onStartPointSpecified);
     }
     removeSecondStepListeners() {
         window.removeEventListener('mousemove', this.updateArrowTransform);
+        document.documentElement.removeEventListener('mousedown', this.preventDefault);
+        document.documentElement.removeEventListener('mouseup', this.preventDefault);
         document.documentElement.removeEventListener('click', this.onEndPointSpecified);
     }
 }

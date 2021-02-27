@@ -1,4 +1,6 @@
-class HTMLPointer extends BasePointer {
+import Pointer from './_Pointer';
+
+export default class HTMLPointer extends Pointer {
     constructor() {
         super();
 
@@ -11,9 +13,8 @@ class HTMLPointer extends BasePointer {
 
     init(callback) {
         this.addListeners();
-
+        this.initCancellationShortcut();
         this.onCreated = callback;
-        this.initShortcuts();
     }
 
     remove() {
@@ -26,7 +27,7 @@ class HTMLPointer extends BasePointer {
     cancel() {
         this.clearAllHighlightedElements();
         this.removeListeners();
-        this.removeShortcuts();
+        this.removeCancellationShortcut();
         this.remove();
     }
 
@@ -40,14 +41,14 @@ class HTMLPointer extends BasePointer {
     }
 
     onElementSelected(e) {
-        e.preventDefault();
+        this.preventDefault(e);
         const target = e.target;
         if (!target) {
             return;
         }
         this.clearAllHighlightedElements();
         this.removeListeners();
-        this.removeShortcuts();
+        this.removeCancellationShortcut();
         target.classList.add(this.targetSetClassName);
 
         this.target = target;
@@ -63,10 +64,14 @@ class HTMLPointer extends BasePointer {
 
     addListeners() {
         window.addEventListener('mousemove', this.onMouseMove);
+        document.documentElement.addEventListener('mousedown', this.preventDefault);
+        document.documentElement.addEventListener('mouseup', this.preventDefault);
         document.documentElement.addEventListener('click', this.onElementSelected);
     }
     removeListeners() {
         window.removeEventListener('mousemove', this.onMouseMove);
+        document.documentElement.removeEventListener('mousedown', this.preventDefault);
+        document.documentElement.removeEventListener('mouseup', this.preventDefault);
         document.documentElement.removeEventListener('click', this.onElementSelected);
     }
 }

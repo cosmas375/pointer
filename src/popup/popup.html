@@ -6,27 +6,36 @@
         rel="stylesheet"
         href="../content/css/pointer-vars.css"
     >
-    <link rel="stylesheet" href="popup.css">
+    <link
+        rel="stylesheet"
+        href="popup.css"
+    >
 </head>
 
 <body>
     <div class="container">
-        <h3 class="title" data-content="popup_title"></h3>
+        <h3
+            class="title"
+            data-content="popup_title"
+        ></h3>
         <div class="row">
             <button
                 type="button"
                 class="button"
-                data-command="initPointer.arrow"
+                data-action="add.arrow"
             >
                 <span class="button__icon button__icon_arrow">&#8605;</span>
-                <span class="button__content" data-content="popup_label_arrow"></span>
+                <span
+                    class="button__content"
+                    data-content="popup_label_arrow"
+                ></span>
             </button>
         </div>
         <!-- <div class="row">
             <button
                 type="button"
                 class="button"
-                data-command="initPointer.rect"
+                data-action="add.rect"
             >
                 <span class="button__icon button__icon_rect">&#9634;</span>
                 <span class="button__content" data-content="popup_label_rectangle"></span>
@@ -36,10 +45,13 @@
             <button
                 type="button"
                 class="button"
-                data-command="initPointer.html"
+                data-action="add.html"
             >
                 <span class="button__icon button__icon_component">&#60; /></span>
-                <span class="button__content" data-content="popup_label_component"></span>
+                <span
+                    class="button__content"
+                    data-content="popup_label_component"
+                ></span>
             </button>
         </div>
         <div class="row row_credits">
@@ -52,7 +64,7 @@
         </div>
     </div>
 
-    <script src="../utils/localizeHTML.js"></script>
+    <script src="localizeHTML.js"></script>
     <script src="popup.js"></script>
 </body>
 

@@ -24,20 +24,11 @@
                 "*://*/*"
             ],
             "css": [
-                "content/css/content.css",
-                "content/css/pointer-vars.css"
+                "src/content/css/content.css",
+                "src/content/css/pointer-vars.css"
             ],
             "js": [
-                "content/js/Overlay.js",
-                // shortcuts
-                "content/js/ShortcutsService.js",
-                // pointers
-                "content/js/pointers/_BasePointer.js",
-                "content/js/pointers/Arrow.js",
-                "content/js/pointers/HTML.js",
-                "content/js/PointersContainer.js",
-                // main
-                "content/js/main.js"
+                "content.js"
             ]
         }
     ],
@@ -46,7 +37,7 @@
     ],
     "browser_action": {
         "default_title": "Pointer",
-        "default_popup": "popup/popup.html"
+        "default_popup": "src/popup/popup.html"
     },
     "background": {
         "service_worker": "background.js"
@@ -72,5 +63,5 @@
             }
         }
     },
-    "options_page": "options/options.html"
+    "options_page": "src/options/options.html"
 }
