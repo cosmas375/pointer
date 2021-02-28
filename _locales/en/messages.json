@@ -27,6 +27,14 @@
         "message": "Clear",
         "description": ""
     },
+    "popup_label_save": {
+        "message": "Save data to storage",
+        "description": ""
+    },
+    "popup_label_restore": {
+        "message": "Restore data from storage",
+        "description": ""
+    },
     "popup_credits": {
         "message": "View on GitHub",
         "description": ""

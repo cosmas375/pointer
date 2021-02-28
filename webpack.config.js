@@ -1,15 +1,11 @@
 const path = require('path');
 const publicPath = path.resolve(__dirname, 'dist');
 
+const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const jsRules = {
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loader: 'eslint-loader',
-    options: {
-        fix: true,
-    },
+const eslintOptions = {
+    fix: true,
 };
 const base = {
     mode: 'production',
@@ -23,9 +19,9 @@ const background = {
         filename: 'background.js',
         path: publicPath,
     },
-    module: {
-        rules: [jsRules],
-    },
+    plugins: [
+        new ESLintPlugin(eslintOptions),
+    ],
 };
 
 const content = {
@@ -38,8 +34,16 @@ const content = {
     },
     module: {
         rules: [
-            jsRules,
             {
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        plugins: [['@babel/plugin-proposal-class-properties']]
+                    }
+                }
+            }, {
                 test: /\.scss$/,
                 use: [
                     {
@@ -53,7 +57,8 @@ const content = {
         ],
     },
     plugins: [
-        new MiniCssExtractPlugin({ filename: 'content.css' })
+        new MiniCssExtractPlugin({ filename: 'content.css' }),
+        new ESLintPlugin(eslintOptions),
     ],
 };
 
@@ -67,7 +72,6 @@ const popup = {
     },
     module: {
         rules: [
-            jsRules,
             {
                 test: /\.scss$/,
                 use: [
@@ -82,7 +86,8 @@ const popup = {
         ],
     },
     plugins: [
-        new MiniCssExtractPlugin({ filename: 'popup.css' })
+        new MiniCssExtractPlugin({ filename: 'popup.css' }),
+        new ESLintPlugin(eslintOptions),
     ],
 };
 

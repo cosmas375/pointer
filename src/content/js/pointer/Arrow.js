@@ -1,10 +1,14 @@
 import Pointer from './_Pointer';
 
 const IMG_ASPECT_RATIO = 4.75;
+const POINTER_TYPE = 'arrow';
 
 export default class ArrowPointer extends Pointer {
+    static type = POINTER_TYPE;
+
     constructor(data) {
         super();
+        this.type = POINTER_TYPE;
         this.componentClassName = `${this.baseClassName}__arrow`; // sync w content.css
 
         if (data) {
@@ -60,6 +64,15 @@ export default class ArrowPointer extends Pointer {
 
         this.createArrowComponent();
         this.updateTransform();
+    }
+
+    getData() {
+        return {
+            startX: this.startX,
+            startY: this.startY,
+            endX: this.endX,
+            endY: this.endY,
+        };
     }
 
     onStartPointSpecified(e) {
@@ -140,9 +153,9 @@ export default class ArrowPointer extends Pointer {
 
 
     addFirstStepListeners() {
-        document.documentElement.addEventListener('mousedown', this.preventDefault);
-        document.documentElement.addEventListener('mouseup', this.preventDefault);
-        document.documentElement.addEventListener('click', this.onStartPointSpecified);
+        document.documentElement.addEventListener('mousedown', this.preventDefault, { capture: true, once: true });
+        document.documentElement.addEventListener('mouseup', this.preventDefault, { capture: true, once: true });
+        document.documentElement.addEventListener('click', this.onStartPointSpecified, { capture: true, once: true });
     }
     removeFirstStepListeners() {
         document.documentElement.removeEventListener('mousedown', this.preventDefault);
@@ -152,9 +165,9 @@ export default class ArrowPointer extends Pointer {
 
     addSecondStepListeners() {
         window.addEventListener('mousemove', this.omMouseMove);
-        document.documentElement.addEventListener('mousedown', this.preventDefault);
-        document.documentElement.addEventListener('mouseup', this.preventDefault);
-        document.documentElement.addEventListener('click', this.onEndPointSpecified);
+        document.documentElement.addEventListener('mousedown', this.preventDefault, { capture: true, once: true });
+        document.documentElement.addEventListener('mouseup', this.preventDefault, { capture: true, once: true });
+        document.documentElement.addEventListener('click', this.onEndPointSpecified, { capture: true, once: true });
     }
     removeSecondStepListeners() {
         window.removeEventListener('mousemove', this.omMouseMove);

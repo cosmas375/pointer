@@ -27,6 +27,14 @@
         "message": "Очистить",
         "description": ""
     },
+    "popup_label_save": {
+        "message": "Сохранить в хранилище",
+        "description": ""
+    },
+    "popup_label_restore": {
+        "message": "Восстановить из хранилища",
+        "description": ""
+    },
     "popup_credits": {
         "message": "Открыть на GitHub",
         "description": ""

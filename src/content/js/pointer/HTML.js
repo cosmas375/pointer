@@ -1,8 +1,13 @@
 import Pointer from './_Pointer';
+import getXPath from '../helpers/getXPath';
 
+const POINTER_TYPE = 'html';
 export default class HTMLPointer extends Pointer {
+    static type = POINTER_TYPE;
+
     constructor(data) {
         super();
+        this.type = POINTER_TYPE;
         this.targetClassName = `${this.baseClassName}__html-target`; // sync w content.css
         this.targetSetClassName = `${this.targetClassName}_set`; // sync w content.css
 
@@ -46,7 +51,16 @@ export default class HTMLPointer extends Pointer {
     }
 
     createFromData(data) {
-        console.log(data);
+        const element = document.evaluate(data, document, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE).iterateNext();
+        if (!element) {
+            return;
+        }
+        this.target = element;
+        this.mount();
+    }
+
+    getData() {
+        return getXPath(this.target);
     }
 
     onMouseMove(e) {
@@ -82,9 +96,9 @@ export default class HTMLPointer extends Pointer {
 
     addListeners() {
         window.addEventListener('mousemove', this.onMouseMove);
-        document.documentElement.addEventListener('mousedown', this.preventDefault);
-        document.documentElement.addEventListener('mouseup', this.preventDefault);
-        document.documentElement.addEventListener('click', this.onElementSelected);
+        document.documentElement.addEventListener('mousedown', this.preventDefault, { capture: true, once: true });
+        document.documentElement.addEventListener('mouseup', this.preventDefault, { capture: true, once: true });
+        document.documentElement.addEventListener('click', this.onElementSelected, { capture: true, once: true });
     }
     removeListeners() {
         window.removeEventListener('mousemove', this.onMouseMove);

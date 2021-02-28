@@ -17,6 +17,12 @@ export default class Interactor {
             case 'clear':
                 this.dispatcher.clear();
                 break;
+            case 'save':
+                this.dispatcher.saveData();
+                break;
+            case 'restore':
+                this.dispatcher.restoreData();
+                break;
         }
     }
 }

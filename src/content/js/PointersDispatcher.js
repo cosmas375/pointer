@@ -1,16 +1,21 @@
 import Container from './services/Container';
 
 export default class PointersDipatcher {
-    constructor({ pointersMap }) {
+    constructor({ pointersMap, storage }) {
         this.pointersMap = pointersMap;
+        this.storage = storage;
 
         this.container = new Container();
         this.historyBuffer = new Container();
     }
 
-    add(pointerType) {
-        const pointer = new this.pointersMap[pointerType]();
-        pointer.init(pointer => this.container.push(pointer));
+    add(pointerType, data) {
+        const pointer = new this.pointersMap[pointerType](data);
+        if (data) {
+            this.container.push(pointer)
+        } else {
+            pointer.init(pointer => this.container.push(pointer));
+        }
         this.historyBuffer.clear();
     }
 
@@ -38,5 +43,23 @@ export default class PointersDipatcher {
 
         this.container.clear();
         this.historyBuffer.clear();
+    }
+
+    saveData() {
+        const data = this.container.getList()
+            .map(pointer => ({ type: pointer.type, data: pointer.getData() }));
+        console.log(data);
+        this.storage.saveData(data);
+    }
+    restoreData() {
+        this.storage.getData(data => {
+            if (!data) {
+                return;
+            }
+            console.log(data);
+            data.forEach(({ type, data }) => {
+                this.add(type, data);
+            });
+        });
     }
 }
