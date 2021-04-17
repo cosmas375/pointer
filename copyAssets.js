@@ -65,7 +65,7 @@ try {
     console.log('Copying locales ...');
 
     const localesDist = mkDir('_locales');
-    fsExtra.copySync(path.join(__dirname, '_locales'), localesDist);
+    fsExtra.copySync(path.join(__dirname, 'src/_locales'), localesDist);
 
     console.log('Successfully copied locales!');
 } catch (error) {
@@ -77,7 +77,7 @@ try {
     console.log('Copying imges ...');
 
     const localesDist = mkDir('images');
-    fsExtra.copySync(path.join(__dirname, 'images'), localesDist);
+    fsExtra.copySync(path.join(__dirname, 'src/images'), localesDist);
 
     console.log('Successfully copied images!');
 } catch (error) {
